@@ -12,6 +12,17 @@ public class MiniHttpServer {
 
     private static User savedUser = new User(1, "Rafael", "rafa@email.com");
 
+    private static final String CONTENT_TYPE_TEXT = "text/plain; charset=UTF-8";
+    private static final String CONTENT_TYPE_JSON =     "application/json; charset=UTF-8";
+
+    private static final String STATUS_200_OK = "200 OK";
+
+    private static final String STATUS_404_NOT_FOUND = "404 Not Found";
+
+    private static final String STATUS_201_CREATED = "201 Created";
+
+    private static final String STATUS_204_NOT_CONTENT = "204 No Content";
+
     public static void main(String[] args) throws Exception {
         ServerSocket serverSocket = new ServerSocket(8080);
         System.out.println("Servidor rodando na porta 8080...");
@@ -55,30 +66,30 @@ public class MiniHttpServer {
             }
 
             if (path.equals("/favicon.ico")) {
-                out.write(getResponse("204 No Content", "")
+                out.write(getResponse(STATUS_204_NOT_CONTENT, CONTENT_TYPE_TEXT,"")
                         .getBytes(StandardCharsets.UTF_8));
             } else if (method.equals("GET") && path.equals("/user")) {
                 if (savedUser == null) {
-                    out.write(getResponse("404 Not Found", "Usuário não encontrado")
+                    out.write(getResponse(STATUS_404_NOT_FOUND, CONTENT_TYPE_TEXT, "Usuário não encontrado")
                             .getBytes(StandardCharsets.UTF_8));
                 } else {
                     String json = JsonParser.toJson(savedUser);
-                    out.write(getResponse("200 OK", json).getBytes(StandardCharsets.UTF_8));
+                    out.write(getResponse(STATUS_200_OK, CONTENT_TYPE_JSON, json).getBytes(StandardCharsets.UTF_8));
                 }
             } else if (method.equals("POST") && path.equals("/user")) {
                 savedUser = JsonParser.fromJson(requestBody, User.class);
-                out.write(getResponse("201 Created", JsonParser.toJson(savedUser))
+                out.write(getResponse(STATUS_201_CREATED, CONTENT_TYPE_JSON, JsonParser.toJson(savedUser))
                         .getBytes(StandardCharsets.UTF_8));
             } else if (method.equals("PUT") && path.equals("/user")) {
                 savedUser = JsonParser.fromJson(requestBody, User.class);
-                out.write(getResponse("200 OK", JsonParser.toJson(savedUser))
+                out.write(getResponse(STATUS_200_OK, CONTENT_TYPE_JSON, JsonParser.toJson(savedUser))
                         .getBytes(StandardCharsets.UTF_8));
             } else if (method.equals("DELETE") && path.equals("/user")) {
                 savedUser = null;
-                String response = getResponse("200 OK", "Usuário removido com sucesso");
+                String response = getResponse(STATUS_200_OK, CONTENT_TYPE_TEXT,"Usuário removido com sucesso");
                 out.write(response.getBytes(StandardCharsets.UTF_8));
             } else {
-                String response = getResponse("404 Not Found", "Rota não encontrada");
+                String response = getResponse(STATUS_404_NOT_FOUND, CONTENT_TYPE_TEXT,"Rota não encontrada");
                 out.write(response.getBytes(StandardCharsets.UTF_8));
             }
 
@@ -87,10 +98,9 @@ public class MiniHttpServer {
         }
 
     }
-
-    private static String getResponse(String status, String body) {
+    private static String getResponse(String status, String contentType, String body) {
         return "HTTP/1.1 " + status + "\r\n" +
-                "Content-Type: text/plain; charset=UTF-8\r\n" +
+                "Content-Type: "+ contentType +"\r\n" +
                 "Content-Length: " + body.getBytes(StandardCharsets.UTF_8).length + "\r\n" +
                 "\r\n" +
                 body;
