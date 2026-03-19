@@ -4,7 +4,7 @@ Vou criar um servidor de aplicação completo, no estilo Tomcat, mas usando o m�
 
 - [x] 1 - Conexão TCP e leitura de requisições HTTP 
 - [x] 2 - Resposta HTTP em json e rotas dinâmicas (mini Jackson)
-- [ ] 3 - GET, POST, PUT, DELETE
+- [x] 3 - GET, POST, PUT, DELETE
 - [ ] 4 - Path Variable (/user/{path-variable})
 - [ ] 5 - Request Param (/user?fu=ba)
 
@@ -43,3 +43,32 @@ Servidor rodando na porta 8080...
 Request: GET /user HTTP/1.1
 Request: GET /favicon.ico HTTP/1.1
 ```
+
+## 3 - GET, POST, PUT, DELETE
+CRUD "completo", anda falta um  monte de coisa, mas temos as quatro operações mais famosas do HTTP.
+
+GET
+```
+curl -i http://localhost:8080/user
+```
+POST
+```
+curl -i -X POST http://localhost:8080/user \
+  -H "Content-Type: application/json" \
+  -d "{\"id\":2,\"name\":\"Maria\",\"email\":\"maria@email.com\"}"
+```
+PUT
+```
+curl -i -X PUT http://localhost:8080/user \
+  -H "Content-Type: application/json" \
+  -d "{\"id\":3,\"name\":\"João\",\"email\":\"joao@email.com\"}"
+```
+E O DELETE
+```
+curl -i -X DELETE http://localhost:8080/user
+```
+
+<img width="584" height="610" alt="image" src="https://github.com/user-attachments/assets/f825493a-ac35-44aa-9810-df3b2165c065" />
+
+
+
