@@ -70,5 +70,8 @@ curl -i -X DELETE http://localhost:8080/user
 
 <img width="584" height="610" alt="image" src="https://github.com/user-attachments/assets/f825493a-ac35-44aa-9810-df3b2165c065" />
 
+<img width="1096" height="551" alt="image" src="https://github.com/user-attachments/assets/c4a68924-b4b1-41de-bf75-4834f379c7ca" />
+
+
 
 
