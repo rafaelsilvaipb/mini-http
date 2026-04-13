@@ -5,13 +5,12 @@ Vou criar um servidor de aplicação completo, no estilo Tomcat, mas usando o m�
 - [x] 1 - Conexão TCP e leitura de requisições HTTP 
 - [x] 2 - Resposta HTTP em json e rotas dinâmicas (mini Jackson)
 - [x] 3 - GET, POST, PUT, DELETE
-- [ ] 4 - Path Variable (/user/{path-variable})
-- [ ] 5 - Request Param (/user?fu=ba)
+- [x] 4 - Path Variable (/user/{path-variable})
+- [x] 5 - Request Param (/user?fu=ba)
 
 ## 1 - Conexão TCP e leitura de requisições HTTP
  Toda a comunicação HTTP é feita sobre TCP, então o primeiro passo é criar um servidor TCP que escute em uma porta específica (por exemplo, 8080) e aceite conexões de clientes.
  Implementei o protocolo HTTP/1.1, ele é quem vai se comunicar com o navegador, mas o caminho é fornecido pelo ServerSocket.
-
 
 Exemplo do protocolo http/1.1, somente isso que o navegador entende.
 ```
@@ -70,8 +69,25 @@ curl -i -X DELETE http://localhost:8080/user
 
 <img width="584" height="610" alt="image" src="https://github.com/user-attachments/assets/f825493a-ac35-44aa-9810-df3b2165c065" />
 
-<img width="1096" height="551" alt="image" src="https://github.com/user-attachments/assets/c4a68924-b4b1-41de-bf75-4834f379c7ca" />
+## 4 - Path Variable (/user/{path-variable})
+Criação do Path Variable
 
+PATH VARIABLE
+```
+curl -i http://localhost:8080/user/10
+```
 
+## 5 - Request Param (/user?fu=ba)
+Criação do Request Param
+
+REQUEST PARAM
+```
+curl -i http://localhost:8080/user?id=10&name=Joao&email=joao@email.com
+```
+
+REQUEST PARAM E PATH VARIABLE
+```
+curl -i http://localhost:8080/user/10?name=Maria&email=maria@email.com
+```
 
 
