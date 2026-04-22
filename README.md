@@ -2,7 +2,7 @@
 
 Vou criar um servidor de aplicação completo, no estilo Tomcat, mas usando o mínimo possível de recursos, para que seja fácil de entender e modificar. Ele vai ser escrito em Java, e vai implementar o protocolo HTTP/1.1.
 
-- [x] 1 - Conexão TCP e leitura de requisições HTTP 
+- [x] 1 - Conexão TCP e leitura de requisições HTTP
 - [x] 2 - Resposta HTTP em json e rotas dinâmicas (mini Jackson)
 - [x] 3 - GET, POST, PUT, DELETE
 - [x] 4 - Path Variable (/user/{path-variable})
@@ -13,10 +13,10 @@ Vou criar um servidor de aplicação completo, no estilo Tomcat, mas usando o m�
  Implementei o protocolo HTTP/1.1, ele é quem vai se comunicar com o navegador, mas o caminho é fornecido pelo ServerSocket.
 
 Exemplo do protocolo http/1.1, somente isso que o navegador entende.
-```
+```http
 GET / HTTP/1.1
 Host: localhost:8080
-content-type:  application/json  
+content-type:  application/json
 
 {"fu": "ba"}
 ```
@@ -29,7 +29,7 @@ No navegador você digita
 http://localhost:8080/user
 ```
 e tem o retorno
-```
+```http
 {
   "id": 1,
   "name": "Rafael",
@@ -47,23 +47,23 @@ Request: GET /favicon.ico HTTP/1.1
 CRUD "completo", anda falta um  monte de coisa, mas temos as quatro operações mais famosas do HTTP.
 
 GET
-```
+```bash
 curl -i http://localhost:8080/user
 ```
 POST
-```
+```bash
 curl -i -X POST http://localhost:8080/user \
   -H "Content-Type: application/json" \
   -d "{\"id\":2,\"name\":\"Maria\",\"email\":\"maria@email.com\"}"
 ```
 PUT
-```
+```bash
 curl -i -X PUT http://localhost:8080/user \
   -H "Content-Type: application/json" \
   -d "{\"id\":3,\"name\":\"João\",\"email\":\"joao@email.com\"}"
 ```
 E O DELETE
-```
+```bash
 curl -i -X DELETE http://localhost:8080/user
 ```
 
@@ -73,7 +73,7 @@ curl -i -X DELETE http://localhost:8080/user
 Criação do Path Variable
 
 PATH VARIABLE
-```
+```bash
 curl -i http://localhost:8080/user/10
 ```
 
@@ -81,12 +81,12 @@ curl -i http://localhost:8080/user/10
 Criação do Request Param
 
 REQUEST PARAM
-```
+```bash
 curl -i http://localhost:8080/user?id=10&name=Joao&email=joao@email.com
 ```
 
 REQUEST PARAM E PATH VARIABLE
-```
+```bash
 curl -i http://localhost:8080/user/10?name=Maria&email=maria@email.com
 ```
 
